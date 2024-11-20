@@ -1,5 +1,5 @@
 # CRAMS
-The Car Rental Agency Management System (CRAMS) is a computer program to control rental operations in an agency including vehicles, clients, bookings and payments.
+The Car Rental Agency Management System (CRAMS) is a computer program that controls rental operations in an agency, including vehicles, clients, bookings, and payments.
 
 Django version 5.1.3
 
@@ -9,7 +9,7 @@ python -m pip install Pillow
 # Install Django
 pip instal Django
 
-# Make imgrations
+# Make migrations
 python manage.py makemigrations
 python manage.py migrate
 
