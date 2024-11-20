@@ -31,4 +31,4 @@ password: Cp317123456
 # Add | Delete | Modify Database
 e.g: localhost:8000/admin
 
-# Contact me to have SECRET_KEY
+# Contact me maix5663@mylaurier.ca to have SECRET_KEY
