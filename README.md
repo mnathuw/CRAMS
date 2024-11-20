@@ -26,4 +26,4 @@ username: client1
 password: Cp317123456
 
 # Add | Delete | Modify Database
-# E.g:http://127.0.0.1:8000/admin
+# E.g:localhost/admin
