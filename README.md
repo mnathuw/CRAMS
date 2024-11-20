@@ -29,6 +29,6 @@ username: client1
 password: Cp317123456
 
 # Add | Delete | Modify Database
-# E.g: localhost:8000/admin
+e.g: localhost:8000/admin
 
 # Contact me to have SECRET_KEY
