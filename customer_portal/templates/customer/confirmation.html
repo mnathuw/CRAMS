@@ -1,0 +1,84 @@
+{% extends 'customer/base.html' %}
+{% block content %}
+
+<!-- Include PayPal JavaScript SDK -->
+<script
+  src="https://www.paypal.com/sdk/js?client-id=AYODPlWlxyP91yAWbPgMjtPW7swTJwR5nrGzX2wi_WFnXvM904sSTXc_ASTzUh5rh9KZHJ8qif4r0L0O&components=buttons"></script>
+
+<div class="w3-bar w3-large w3-black">
+  <div class="w3-bar-item w3-left w3-black">CRAMS</div>
+  <div class="w3-bar-item w3-left w3-black">Customer Portal: {{ user.username }}</div>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/logout/">Logout</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/manage/">Manage</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/search/">Search Cars</a>
+</div>
+
+<div class="w3-container w3-center">
+  <b>Car: {{ vehicle.car_name }}</b>
+  <form class="w3-container" action="/customer_portal/confirmed/" method="post">
+    {% csrf_token %}
+    <b>Price: ${{ cost_per_day }} per day</b><br><br>
+    <label>How many days?</label>
+    <input id="days-input" type="text" placeholder="2" name="days" required><br><br>
+
+    <!-- Create PayPal button container -->
+    <div style="display: flex; justify-content: center; height: 100%;">
+      <div id="paypal-button-container"></div>
+    </div>
+    <!-- Hidden vehicle ID for confirmation -->
+    <input type="hidden" value="{{ vehicle.id }}" name="id">
+    <br><br>
+    <!-- <input class="w3-btn w3-teal" type="submit" value="Confirm My Order"> -->
+  </form>
+</div>
+
+<script>
+  // Function to check if the days input is valid and enable the PayPal button
+  function checkDaysAndEnableButton() {
+    var daysInput = document.getElementById('days-input');
+    var days = daysInput.value;
+    var isValid = days && !isNaN(days) && days > 0;
+
+    // Enable/disable the PayPal button based on the validity of the input
+    if (isValid) {
+      document.getElementById('paypal-button-container').style.pointerEvents = 'auto'; // Enable PayPal button
+    } else {
+      document.getElementById('paypal-button-container').style.pointerEvents = 'none'; // Disable PayPal button
+    }
+  }
+
+  // Set up an event listener to call the function when the input changes
+  document.getElementById('days-input').addEventListener('input', checkDaysAndEnableButton);
+
+  // Initial call to check input when page loads
+  checkDaysAndEnableButton();
+
+  paypal.Buttons({
+    createOrder: function (data, actions) {
+      var days = document.querySelector('input[name="days"]').value;
+      var totalAmount = '{{ cost_per_day }}' * days; // Multiply cost per day by the days entered
+
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: totalAmount
+          }
+        }]
+      });
+    },
+    onApprove: function (data, actions) {
+      return actions.order.capture().then(function (details) {
+        alert('Payment approved by ' + details.payer.name.given_name);
+
+        // Redirect to the confirmed order page, passing the vehicle id and days in the URL
+        var days = document.querySelector('input[name="days"]').value;
+        window.location.href = '/customer_portal/confirmed/?id={{ vehicle.id }}&days=' + days;
+      });
+    },
+    onError: function (err) {
+      alert('Error: ' + err);
+    }
+  }).render('#paypal-button-container');  // Render the PayPal button inside the container
+</script>
+
+{% endblock %}

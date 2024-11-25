@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+{% load static %}
 
 <head>
   <!-- Required meta tags -->
@@ -8,82 +9,59 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="icon" href="/static/logo.ico">
-  <title>{% block title %}{% endblock title %} CRAMS</title>
+    crossorigin="anonymous">
+  <!-- Favicon link -->
+  <link rel="icon" href="{% static 'logo.ico' %}">
 
-  {%load static%}
-  <link rel="stylesheet" href="{%static 'style.css'%}">
-  {%block style%}{%endblock style%}
-  </style>
+  <!-- Page Title -->
+  <title>{% block title %} CRAMS {% endblock title %}</title>
+
+  <!-- Custom CSS (W3.CSS) -->
+  <link rel="stylesheet" href="{% static 'w3.css' %}">
+
+  <!-- Additional custom styles (if needed) -->
+  {% block style %}{% endblock style %}
 </head>
 
-<body style="background-color:aliceblue">
-  <div id="nonPrintable">
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"></script>
+{% block content %}
+<!-- Navigation Bar -->
+<div class="w3-bar w3-black">
+  <!-- Brand Name -->
+  <div class="w3-bar-item w3-left w3-black">CRAMS</div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <!-- Navigation Links -->
+  <a class="w3-bar-item w3-left w3-btn w3-teal" href="/">Home</a>
+  <a class="w3-bar-item w3-left w3-btn w3-teal" href="/about">About Us</a>
+  <a class="w3-bar-item w3-left w3-btn w3-teal" href="/contact">Contact</a>
 
-      <a class="navbar-brand" href="#">CRAMS</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!-- Conditional Links for Authentication -->
+  {% if user.is_authenticated %}
+  <!-- Show Log Out link if the user is authenticated -->
+  <a class="w3-bar-item w3-left w3-btn w3-teal" href="/signout">Log Out</a>
+  {% else %}
+  <!-- Show Login options if the user is not authenticated -->
+  <a class="w3-bar-item w3-right w3-btn w3-teal" href="/customer_portal/login/">Customer Login</a>
+  <a class="w3-bar-item w3-right w3-btn w3-teal" href="/car_dealer_portal/login/">Car Dealer Login</a>
+  {% endif %}
+</div>
+{% endblock %}
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/home">Home</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="/about">About Us</a>
-          </li>
-          {%if user.is_authenticated%}
-          <li class="nav-item active">
-            <a class="nav-link" href="/vehicles">Vehicles</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="/contact">Contact</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="/signout">Log Out</a>
-          </li>
+<!-- Main content block where dynamic content will be injected -->
+<div class="container mt-5 pt-5">
+  {% block body %}{% endblock body %}
+</div>
 
-          {%else%}
-          <li class="nav-item active">
-            <a class="nav-link" href="/signin">Login</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="/contact">Contact</a>
-          </li>
-          {% endif %}
+<!-- Footer Section -->
+<footer class="text-center py-3">
+  <p>&copy; 2024 CRAMS. All rights reserved.</p>
+</footer>
 
-        </ul>
-
-      </div>
-    </nav>
-    {% block body %} {% endblock body %}
-    <!-- Footer -->
-    <footer class="page-footer-text-center font-small blue mx-5">
-
-      <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">© 2024 CRAMS
-      </div>
-      <!-- Copyright -->
-
-    </footer>
-    <!-- Footer -->
-  </div>
-</body>
+<!-- JavaScript Libraries: jQuery, Popper.js, Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </html>

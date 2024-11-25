@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'django-insecure-o4n(hm_uy8mvil^+g2drc*u1&06!uvn&tp@pg(q_06v1#@)6&p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'MyApp.apps.MyappConfig',
+    'car_dealer_portal',
+    'customer_portal',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +139,12 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+PAYPAL_RECEIVER_EMAIL = 'sb-icssv33269733@business.example.com'
+PAYPAL_TEST = True
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,"static")
 ]
+APPEND_SLASH = False
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
