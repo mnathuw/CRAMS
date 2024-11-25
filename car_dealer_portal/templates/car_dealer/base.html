@@ -1,0 +1,59 @@
+{% load static %}
+
+<html>
+
+<head>
+  <title>Dealer Log In</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'w3.css' %}">
+
+  <!-- Custom CSS to make footer stick to the bottom -->
+  <style>
+    /* Ensure the html and body take the full height of the viewport */
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    /* Make the body a flex container to allow footer alignment */
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      /* Align content to the top */
+      min-height: 100vh;
+      /* Ensure the body takes at least 100vh */
+    }
+
+    /* Main content area */
+    .content {
+      flex-grow: 1;
+      /* Ensures the content area grows to take available space */
+    }
+
+    /* Footer styling */
+    footer {
+      text-align: center;
+      width: 100%;
+      padding: 10px 0;
+      background-color: #f8f9fa;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    {% block content %}
+    <!-- Your content goes here -->
+    {% endblock %}
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 CRAMS. All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>
