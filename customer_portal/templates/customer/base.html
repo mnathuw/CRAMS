@@ -1,0 +1,51 @@
+{% load static %}
+
+<html>
+
+<head>
+  <title>Customer Log In</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'w3.css' %}">
+
+  <!-- Custom CSS to make footer stick at the bottom -->
+  <style>
+    /* Ensure the body takes the full height of the viewport */
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    /* Make the content area flexible so it expands to fill space */
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Make the footer stick to the bottom */
+    footer {
+      margin-top: auto;
+      /* Push footer to the bottom */
+      text-align: center;
+      width: 100%;
+      padding: 10px 0;
+      background-color: #f8f9fa;
+      /* Optional: change background color of footer */
+    }
+  </style>
+</head>
+
+<body>
+
+  {% block content %}
+  <!-- Your content goes here -->
+  {% endblock %}
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 CRAMS. All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>

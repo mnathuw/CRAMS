@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'MyApp.apps.MyappConfig',
+    'car_dealer_portal',
+    'customer_portal',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +139,12 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+PAYPAL_RECEIVER_EMAIL = 'sb-icssv33269733@business.example.com'
+PAYPAL_TEST = True
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,"static")
 ]
+APPEND_SLASH = False
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'

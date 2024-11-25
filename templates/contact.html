@@ -1,74 +1,74 @@
 {% extends 'layout.html' %}
-{%load static%}
-<link rel="stylesheet" href="{%static 'style.css'%}">
-{% block title %}Contact{% endblock title %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+{% block title %}Contact{% endblock %}
 
 {% block body %}
+<div class="container-fluid"
+  style="background-image: url('{% static 'img1.webp' %}'); background-size: cover; min-height: 100vh;">
+  <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow p-4" style="max-width: 600px; width: 100%; background-color: rgba(255, 255, 255, 0.8);">
+      <h2 class="text-center mb-4">Contact Us</h2>
+      <form method="post" action="/contact">
+        {% csrf_token %}
 
-
-<section class="h-100 gradient-form" style="background-color: #eee;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-xl-10">
-        <div class="card rounded-3 text-black">
-          <div class="row g-0">
-            <div class="col-lg-6">
-              <div class="card-body p-md-5 mx-md-4">
-
-                <div class="text-center">
-
-                  <h2 class="mt-1 mb-5 pb-1">Contact Us</h2>
-
-                </div>
-
-                <form method="post" action="/contact">
-                  {%csrf_token%}
-
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example11">Name : </label>
-                    <input type="text" id="contactname" name="contactname" class="form-control" placeholder="John Smith"
-                      required>
-
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example11">Phone Number : </label>
-                    <input type="tel" id="contactnumber" name="contactnumber" class="form-control"
-                      placeholder="E.g: (204) 335-1234" required>
-
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example11">Email : </label>
-                    <input type="email" id="contactemail" name="contactemail" class="form-control"
-                      placeholder="john@example.com" required>
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example11">Message : </label>
-                    <input type="message" id="contactmsg" name="contactmsg" class="form-control "
-                      placeholder="Write your message here..." required>
-                  </div>
-
-
-                  <div class="text-center pt-1 mb-5 pb-1">
-
-                    <button type="submit" class="btn btn-info btn-block fa-lg  mb-3">Submit</button>
-                  </div>
-                </form>
-
-
-
-
-              </div>
-            </div>
-            <div class="col-lg-6 d-flex align-items-center gradient-custom-2 " {%load static%} style="background-image: url({% static 'img1.webp' %}); background-repeat: no-repeat; background-size:
-              cover;">
-              <div class="text-black px-3 py-4 p-md-5 mx-md-4">
-              </div>
-            </div>
-          </div>
+        <div class="form-group">
+          <label for="contactname">Name</label>
+          <input type="text" id="contactname" name="contactname" class="form-control" placeholder="John Smith" required>
         </div>
-      </div>
+
+        <div class="form-group">
+          <label for="contactnumber">Phone Number</label>
+          <input type="tel" id="contactnumber" name="contactnumber" class="form-control"
+            placeholder="E.g: (204) 335-1234" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contactemail">Email</label>
+          <input type="email" id="contactemail" name="contactemail" class="form-control" placeholder="john@example.com"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="contactmsg">Message</label>
+          <textarea id="contactmsg" name="contactmsg" class="form-control" placeholder="Write your message here..."
+            required></textarea>
+        </div>
+
+        <div class="text-center pt-1 mb-5 pb-1">
+          <button type="submit" class="btn btn-info btn-block fa-lg mb-3">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
-</section>
+</div>
 
-{% endblock body %}
+<!-- Success Modal -->
+<div id="successModal" class="w3-modal">
+  <div class="w3-modal-content w3-card-4">
+    <header class="w3-container w3-teal">
+      <span onclick="document.getElementById('successModal').style.display='none'"
+        class="w3-button w3-display-topright">&times;</span>
+      <h2>Success!</h2>
+    </header>
+    <div class="w3-container">
+      <p>Your message has been successfully submitted. We will get back to you shortly.</p>
+    </div>
+    <footer class="w3-container">
+      <button onclick="document.getElementById('successModal').style.display='none'"
+        class="w3-button w3-red w3-right">Close</button>
+    </footer>
+  </div>
+</div>
+
+<!-- Show Modal if Form is Submitted -->
+{% if form_submitted %}
+<script>
+  // Show modal on page load if form was submitted
+  document.getElementById('successModal').style.display = 'block';
+</script>
+{% endif %}
+
+{% endblock %}
