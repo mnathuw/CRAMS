@@ -7,7 +7,6 @@ from customer_portal.models import *
 from django.contrib.auth.decorators import login_required
 from car_dealer_portal.models import *
 from django.http import HttpResponseRedirect
-# Create your views here.
 
 def index(request):
     if not request.user.is_authenticated:
