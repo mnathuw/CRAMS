@@ -13,8 +13,7 @@ pip instal Django
 pip install django-paypal
 
 # Make migrations
-python manage.py makemigrations
-##
+python manage.py makemigrations\
 python manage.py migrate
 
 # Run app on website
