@@ -3,62 +3,49 @@
 {% block title %}About Us{% endblock title %}
 
 {% block body %}
-
-<div class="jumbotron p-5 text-white rounded bg-info" style="height:560px ">
-  <div class="col-md-6 px-0" style="margin:95px">
-    <h1 class="display-4 " style="font-size:90px">About Us!</h1>
-    <p class="lead my-3">Our mission is to transform car rental businesses by providing a seamless, automated
-      platform for managing
-      vehicles,
-      clients, bookings, and payments. By leveraging cutting-edge technology, CRAMS enhances service quality, reduces
-      errors,
-      and maximizes fleet utilization, enabling agencies to focus on what matters most: delivering a superior customer
-      experience.</p>
+<div class="jumbotron p-5 text-white rounded bg-info" style="height:560px">
+  <div class="col-md-6 px-0" style="margin-top:95px;">
+    <h1 class="display-4" style="font-size:90px;">About Us!</h1>
+    <p class="lead my-3">Our mission is to transform car rental businesses by providing a seamless, automated platform
+      for managing vehicles, clients, bookings, and payments. By leveraging cutting-edge technology, CRAMS enhances
+      service quality, reduces errors, and maximizes fleet utilization, enabling agencies to focus on what matters most:
+      delivering a superior customer experience.</p>
     <a class="btn btn-dark btn-lg" href="#123" role="button">Learn more</a>
   </div>
 </div>
-<div class="p-3 mb-2  text-info" id="123">
-  <div class="row m-5">
-    <div class="container fluid px-0">
-      <h1 class="my-3 text-center">Why Choose Us?</h1>
-    </div>
-    <div class="col-xl-4">
-      <div class="container fluid px-0">
-        {%load static%}
-        <img src="{% static 'automation.webp' %}" width="300" height="300"
-          style=" background-color: white;border-radius: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:60px">
-      </div>
-      <h2 class="hd my-2 " style=" text-align:center">Seamless Automation</h2>
-      <p style="font-size:20px; text-align:center">CRAMS simplifies rental operations by automating key processes such
-        as reservations, inventory management, and billing.
-        This reduces manual effort, minimizes errors, and boosts overall efficiency.</p>
 
-    </div><!-- /.col-lg-4 -->
-    <div class="col-xl-4">
-      <div class="container">
-        {%load static%}
-        <img src="{% static 'customer experience.webp' %}" width="300" height="300"
-          style=" background-color: white;border-radius: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:60px">
-      </div>
-      <h2 class="hd my-2 " style=" text-align:center">Superior Customer Experience</h2>
-      <p style="font-size:20px ; text-align:center">With an intuitive interface, customers can easily browse vehicles,
-        make bookings, and complete payments. Quick and
-        reliable service ensures satisfaction, fostering customer loyalty and trust. </p>
+<div class="container py-5" id="123">
+  <h1 class="text-center text-info mb-5">Why Choose Us?</h1>
+  <div class="row justify-content-center">
+    <div class="col-xl-4 d-flex flex-column align-items-center mb-4">
+      {%load static%}
+      <img src="{% static 'automation.webp' %}" class="img-fluid rounded-3 shadow"
+        style="max-width: 300px; height: auto;">
+      <h2 class="my-3 text-center">Seamless Automation</h2>
+      <p class="text-center" style="font-size: 18px;">CRAMS simplifies rental operations by automating key processes
+        such as reservations, inventory management, and billing. This reduces manual effort, minimizes errors, and
+        boosts overall efficiency.</p>
+    </div><!-- /.col-xl-4 -->
 
-    </div><!-- /.col-lg-4 -->
-    <div class="col-xl-4">
-      <div class="container-center">
-        {%load static%}
-        <img src="{% static 'tracking.webp' %}" width="300" height="300"
-          style=" background-color: white;border-radius: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:60px">
-      </div>
-      <h2 class="hd my-2" style=" text-align:center">Optimized Performance</h2>
-      <p style="font-size:20px ; text-align:center">CRAMS provides powerful tools for fleet utilization, maintenance
-        tracking, and detailed performance reporting. These
-        insights help agencies improve decision-making, maximize profitability, and stay ahead in the competitive car
-        rental
-        industry.</p>
-    </div><!-- /.col-lg-4 -->
-  </div>
-</div>
+    <div class="col-xl-4 d-flex flex-column align-items-center mb-4">
+      {%load static%}
+      <img src="{% static 'customer experience.webp' %}" class="img-fluid rounded-3 shadow"
+        style="max-width: 300px; height: auto;">
+      <h2 class="my-3 text-center">Superior Customer Experience</h2>
+      <p class="text-center" style="font-size: 18px;">With an intuitive interface, customers can easily browse vehicles,
+        make bookings, and complete payments. Quick and reliable service ensures satisfaction, fostering customer
+        loyalty and trust.</p>
+    </div><!-- /.col-xl-4 -->
+
+    <div class="col-xl-4 d-flex flex-column align-items-center mb-4">
+      {%load static%}
+      <img src="{% static 'tracking.webp' %}" class="img-fluid rounded-3 shadow"
+        style="max-width: 300px; height: auto;">
+      <h2 class="my-3 text-center">Optimized Performance</h2>
+      <p class="text-center" style="font-size: 18px;">CRAMS provides powerful tools for fleet utilization, maintenance
+        tracking, and detailed performance reporting. These insights help agencies improve decision-making, maximize
+        profitability, and stay ahead in the competitive car rental industry.</p>
+    </div><!-- /.col-xl-4 -->
+  </div><!-- /.row -->
+</div><!-- /.container -->
 {% endblock body %}
