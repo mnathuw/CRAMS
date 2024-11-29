@@ -53,15 +53,15 @@ username: admin
 password: cp317
 ```
 - **Client Account**
-``
+```
 username: client1
 password: cp317
-``
+```
 - **Dealer Account**
-``
+```
 username: dealer1
 password: cp317
-``
+```
 ### 💳 Payment Testing
 - **PayPal Test Account**
 ```
