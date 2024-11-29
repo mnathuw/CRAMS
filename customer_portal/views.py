@@ -127,10 +127,6 @@ def search_results(request):
     request.session['vehicles_list'] = vehicles_list
     return render(request, 'customer/search_results.html')
 
-
-
-
-
 @login_required
 def rent_vehicle(request):
     id = request.POST['id']

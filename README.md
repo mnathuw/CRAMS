@@ -3,14 +3,8 @@ The Car Rental Agency Management System (CRAMS) is a computer program that contr
 
 Django version 5.1.3
 
-# Install Pillow
-python -m pip install Pillow
-
-# Install Django
-pip instal Django
-
-# Install Django PayPal
-pip install django-paypal
+# Install requirement
+pip install -r requirements.txt
 
 # Make migrations
 python manage.py makemigrations\
