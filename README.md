@@ -35,46 +35,46 @@ pip install -r requirements.txt
 ```
 - **Make migrations**
 ```
-python manage.py makemigrations\
+python manage.py makemigrations
 python manage.py migrate
 ```
 - **Run app on website**
 ```
 python manage.py runserver
 ```
--**Create admin account**
+- **Create admin account**
 ```
 python manage.py createsuperuser
 ```
 ### 🧑‍💻 Accounts for Testing
--**Admin Account**
+- **Admin Account**
 ```
-username: admin\
+username: admin
 password: cp317
 ```
--**Client Account**
+- **Client Account**
 ``
-username: client1\
+username: client1
 password: cp317
 ``
--**Dealer Account**
+- **Dealer Account**
 ``
-username: dealer1\
+username: dealer1
 password: cp317
 ``
 ### 💳 Payment Testing
--**PayPal Test Account**
+- **PayPal Test Account**
 ```
-firstname: John\
-lastname: Doe\
-email: sb-icssv33269733@business.example.com\
-password: ,t8/L&Tq\
-address: 1 Maire-Victorin, Toronto ON M5A 1E1\
+firstname: John
+lastname: Doe
+email: sb-icssv33269733@business.example.com
+password: ,t8/L&Tq
+address: 1 Maire-Victorin, Toronto ON M5A 1E1
 phone: 6136270192
 ```
--**Credit Card Test**
-card number: 4214023128717093\
-expiry date: 02/2029\
+- **Credit Card Test**
+card number: 4214023128717093
+expiry date: 02/2029
 cvc code: 848
 
 ### 🛠 Database Management
