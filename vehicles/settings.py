@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'car_dealer_portal',
     'customer_portal',
     'paypal.standard.ipn',
+    'multiselectfield',
+    'ckeditor',
+    'django.contrib.auth.hashers'
 ]
 
 MIDDLEWARE = [
@@ -130,9 +133,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# managing media
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

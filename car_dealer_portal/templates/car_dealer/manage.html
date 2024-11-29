@@ -1,37 +1,62 @@
 {% extends 'car_dealer/base.html' %}
+
+{% load static %}
+
 {% block content %}
 <div class="w3-bar w3-black w3-large">
   <div class="w3-bar-item w3-left w3-black">CRAMS</div>
-  <div class="w3-bar-item w3-left w3-black">Car Dealer Portal: {{user.username}}</div>
+  <div class="w3-bar-item w3-left w3-black">Car Dealer Portal: {{ user.username }}</div>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/logout/">Logout</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right " href="/car_dealer_portal/auth/">Home</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/order_list/">Orders</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/manage_vehicles/">Vehicles</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/history/">Earnings</a>
 </div>
+
 <h3 class="w3-center" style="padding-top:30"><b>Posted Vehicles</b></h3>
 <div style="padding:18">
   <table class="w3-table w3-striped w3-center">
-
     <tr>
-      <th style="padding:20;">Car </th>
-      <th style="padding:20;">Color </th>
-      <th style="padding:20;">Capacity </th>
-      <th style="padding:20;">Province </th>
-      <th style="padding:20;">Address</th>
+      <th style="padding:20;">Car</th>
+      <th style="padding:20;">Image</th>
+      <th style="padding:20;">Color</th>
+      <th style="padding:20;">Body Style</th>
+      <th style="padding:20;">VIN</th>
+      <th style="padding:20;">Province</th>
+      <th style="padding:20;">City</th>
+      <th style="padding:20;">Features</th>
       <th style="padding:20;">Action</th>
     </tr>
     {% for vehicle in vehicle_list %}
     <tr>
-      <td>{{vehicle.car_name}}</td>
-      <td>{{vehicle.color}}</td>
-      <td>{{vehicle.capacity}} Seats</td>
-      <td>{{vehicle.area.province}}</td>
-      <td>{{vehicle.area.city}}</td>
+      <td>{{ vehicle.car_name }}</td>
+      <td>
+        {% if vehicle.car_photo %}
+        <img src="{{ vehicle.car_photo.url }}" alt="{{ vehicle.car_name }}" width="100" height="auto">
+        {% else %}
+        <img src="{% static 'photos/default.jpg' %}" alt="No Image" width="100" height="auto">
+        {% endif %}
+      </td>
+      <td>{{ vehicle.color }}</td>
+      <td>{{ vehicle.body_style }}</td>
+      <td>{{ vehicle.vin_no }}</td>
+      <td>{{ vehicle.area.province }}</td> <!-- Fix: Reference the province from Area -->
+      <td>{{ vehicle.area.city }}</td> <!-- Fix: Reference the city from Area -->
+      <td>
+        {% if vehicle.features %}
+        <ul>
+          {% for feature in vehicle.features %}
+          <li>{{ feature }}</li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <span>No features listed.</span>
+        {% endif %}
+      </td>
       <td>
         <form action="/car_dealer_portal/delete/" method="post">
           {% csrf_token %}
-          <input type="hidden" name="id" value="{{vehicle.id}}">
+          <input type="hidden" name="id" value="{{ vehicle.id }}">
           <input class="w3-btn w3-red" type="submit" value="Delete">
         </form>
       </td>

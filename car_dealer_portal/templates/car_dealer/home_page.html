@@ -4,43 +4,198 @@
 
 <div class="w3-bar w3-large w3-black">
   <div class="w3-bar-item w3-left w3-black">CRAMS</div>
-  <div class="w3-bar-item w3-left w3-black">Car Dealer Portal: {{user.username}}</div>
+  <div class="w3-bar-item w3-left w3-black">Car Dealer Portal: {{ user.username }}</div>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/logout/">Logout</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/order_list/">Orders</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/manage_vehicles/">Vehicles</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/car_dealer_portal/history/">Earnings</a>
 </div>
 
-<!-- Center the form -->
-<div class="w3-display-container" style="height: 800px;">
-  <div class="w3-display-middle" style="max-width: 600px; width: 100%; padding: 20px;">
-    <h3 class="w3-container w3-bar w3-black w3-large" style="padding:8px; text-align: center;">
-      Post Vehicles
-    </h3>
+<div class="w3-container w3-padding-16">
+  <h2 class="w3-center w3-black w3-padding">Post Vehicle</h2>
 
-    <form class="w3-container" action="/car_dealer_portal/add_vehicle/" method="post">
-      {% csrf_token %}
-      <label>Car Name:</label>
-      <input class="w3-input" type="text" name="car_name" required><br><br>
+  <form class="w3-container w3-card-4 w3-padding-16" action="/car_dealer_portal/add_vehicle/" method="post"
+    enctype="multipart/form-data">
+    {% csrf_token %}
 
-      <label>Color:</label>
-      <input class="w3-input" type="text" name="color" required><br><br>
+    <!-- Vehicle Details -->
+    <h3 class="w3-text-black">Vehicle Details</h3>
+    <div class="w3-row-padding">
+      <div class="w3-half">
+        <label>Car Name:</label>
+        <input class="w3-input" type="text" name="car_name" required>
+      </div>
+      <div class="w3-half">
+        <label>Model:</label>
+        <input class="w3-input" type="text" name="model" required>
+      </div>
+    </div>
+    <div class="w3-row-padding">
+      <div class="w3-half">
+        <label>Year:</label>
+        <select class="w3-input" name="year" required>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <!-- Add more years as necessary -->
+        </select><br>
+      </div>
+      <div class="w3-half">
+        <label>Condition:</label>
+        <select class="w3-input" name="condition" required>
+          <option value="New">New</option>
+          <option value="Used">Used</option>
+        </select>
+      </div>
+    </div>
+    <div class="w3-row-padding">
+      <div class="w3-half">
+        <label>Color:</label>
+        <input class="w3-input" type="text" name="color" value="Black" required>
+      </div>
+      <div class="w3-half">
+        <label>Price ($):</label>
+        <input class="w3-input" type="number" name="price" required>
+      </div>
+    </div>
 
-      <label>City:</label>
-      <input class="w3-input" type="text" name="city" required><br><br>
+    <!-- Location Details -->
+    <h3 class="w3-text-black">Location</h3>
+    <div class="w3-row-padding">
+      <div class="w3-half">
+        <label>City:</label>
+        <input class="w3-input" type="text" name="city" value="Waterloo" required>
+      </div>
+      <div class="w3-half">
+        <label>Province:</label>
+        <select class="w3-input" name="province" required>
+          <option value="AB">Alberta</option>
+          <option value="BC">British Columbia</option>
+          <option value="MB">Manitoba</option>
+          <option value="NB">New Brunswick</option>
+          <option value="NL">Newfoundland and Labrador</option>
+          <option value="NS">Nova Scotia</option>
+          <option value="NT">Northwest Territories</option>
+          <option value="NU">Nunavut</option>
+          <option value="ON">Ontario</option>
+          <option value="PE">Prince Edward Island</option>
+          <option value="QC">Quebec</option>
+          <option value="SK">Saskatchewan</option>
+          <option value="YT">Yukon</option>
+        </select><br>
+      </div>
+    </div>
 
-      <label>Province:</label>
-      <input class="w3-input" type="text" name="province" required><br><br>
+    <!-- Specifications -->
+    <h3 class="w3-text-black">Specifications</h3>
+    <div class="w3-row-padding">
+      <div class="w3-half">
+        <label>Body Style:</label>
+        <input class="w3-input" type="text" name="body_style" value="Sedan" required>
+      </div>
+      <div class="w3-half">
+        <label>Fuel Type:</label>
+        <input class="w3-input" type="text" name="fuel_type" value="Gasoline" required>
+      </div>
+    </div>
+    <div class="w3-row-padding">
+      <div class="w3-half">
+        <label>Transmission:</label>
+        <input class="w3-input" type="text" name="transmission" value="Automatic" required>
+      </div>
+      <div class="w3-half">
+        <label>Engine:</label>
+        <input class="w3-input" type="text" name="engine" value="2.0L" required>
+      </div>
+    </div>
+    <div class="w3-row-padding">
+      <div class="w3-half">
+        <label>Mileage (miles):</label>
+        <input class="w3-input" type="number" name="milage" required>
+      </div>
+      <div class="w3-half">
+        <label>Doors:</label>
+        <select class="w3-input" name="doors" required>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select><br>
+      </div>
+    </div>
+    <div class="w3-row-padding">
+      <div class="w3-half">
+        <label>Capacity:</label>
+        <input class="w3-input" type="number" name="capacity" required>
+      </div>
+      <div class="w3-half">
+        <label>Interior:</label>
+        <input class="w3-input" type="text" name="interior" value="Leather" required>
+      </div>
+    </div>
 
-      <label>Description:</label>
-      <input class="w3-input" type="text" name="description" required><br><br>
+    <!-- Additional Information -->
+    <h3 class="w3-text-black">Additional Information</h3>
+    <label>Description:</label>
+    <textarea class="w3-input" name="description" rows="4" required>No description available.</textarea>
 
-      <label>Capacity (Seats):</label>
-      <input class="w3-input" type="text" name="capacity" required><br><br>
+    <label>VIN Number:</label>
+    <input class="w3-input" type="text" name="vin_no" required>
 
-      <input class="w3-btn w3-green" type="submit" value="Add Vehicle"><br><br>
-    </form>
-  </div>
+    <label>Features:</label><br>
+    <input type="checkbox" name="features" value="Cruise Control">
+    <label>Cruise Control</label><br>
+
+    <input type="checkbox" name="features" value="Audio Interface">
+    <label>Audio Interface</label><br>
+
+    <input type="checkbox" name="features" value="Airbags">
+    <label>Airbags</label><br>
+
+    <input type="checkbox" name="features" value="Air Conditioning">
+    <label>Air Conditioning</label><br>
+
+    <input type="checkbox" name="features" value="Seat Heating">
+    <label>Seat Heating</label><br>
+
+    <input type="checkbox" name="features" value="Alarm System">
+    <label>Alarm System</label><br>
+
+    <input type="checkbox" name="features" value="ParkAssist">
+    <label>ParkAssist</label><br>
+
+    <input type="checkbox" name="features" value="Power Steering">
+    <label>Power Steering</label><br>
+
+    <input type="checkbox" name="features" value="Reversing Camera">
+    <label>Reversing Camera</label><br>
+
+    <input type="checkbox" name="features" value="Direct Fuel Injection">
+    <label>Direct Fuel Injection</label><br>
+
+    <input type="checkbox" name="features" value="Auto Start/Stop">
+    <label>Auto Start/Stop</label><br>
+
+    <input type="checkbox" name="features" value="Wind Deflector">
+    <label>Wind Deflector</label><br>
+
+    <input type="checkbox" name="features" value="Bluetooth Handset">
+    <label>Bluetooth Handset</label><br>
+
+
+    <!-- Upload Photos -->
+    <h3 class="w3-text-black">Upload Photos</h3>
+    <label>Car Photo:</label>
+    <input class="w3-input" type="file" name="car_photo" required>
+
+    <!-- Submit -->
+    <div class="w3-center w3-padding-16">
+      <input class="w3-btn w3-green w3-large" type="submit" value="Add Vehicle">
+    </div>
+  </form>
 </div>
 
 {% endblock %}

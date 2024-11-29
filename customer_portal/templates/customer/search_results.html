@@ -1,50 +1,56 @@
 {% extends 'customer/base.html' %}
+{% load static %}
 {% block content %}
 
 <div class="w3-bar w3-large w3-black">
   <div class="w3-bar-item w3-left w3-black">CRAMS</div>
-  <div class="w3-bar-item w3-left w3-black">Customer Portal: {{user.username}}</div>
+  <div class="w3-bar-item w3-left w3-black">Customer Portal: {{ user.username }}</div>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/logout/">Logout</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/manage/">Manage</a>
-  <a class="w3-ber-item w3-btn w3-teal w3-right" href="/customer_portal/search/">Search Cars</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/search/">Search Cars</a>
 </div>
 
 <h3 class="w3-center" style="padding-top:30"><b>Search Results</b></h3>
 
 <div class="w3-center" style="padding:50px;">
   <table class="w3-table w3-striped w3-center w3-large">
-
-
     <tr>
-      <th style="padding:20">Vehicle </th>
-      <th style="padding:20">Color </th>
-      <th style="padding:20">Capacity </th>
-      <th style="padding:20">Description </th>
-      <th style="padding:20">Province </th>
-      <th style="padding:20">
-      </th style="padding:20">
+      <th style="padding:20">Vehicle</th>
+      <th style="padding:20">Photo</th>
+      <th style="padding:20">Color</th>
+      <th style="padding:20">Capacity</th>
+      <th style="padding:20">Description</th>
+      <th style="padding:20">Province</th>
+      <th style="padding:20"></th>
     </tr>
+
     {% for vehicle in request.session.vehicles_list %}
     <tr>
-      <td>{{vehicle.name}}</td>
-      <td>{{vehicle.color}}</td>
-      <td>{{vehicle.capacity}}</td>
-      <td>{{vehicle.description}}</td>
-      <td>{{vehicle.province}}</td>
+      <td>{{ vehicle.name }}</td> <!-- Changed from 'name' to 'car_name' -->
+
+      <td>
+        {% if vehicle.car_photo %}
+        <img src="{{ vehicle.car_photo }}" alt="{{ vehicle.car_name }}" width="100" height="auto">
+        {% else %}
+        <img src="{% static 'photos/default.jpg' %}" alt="No Image" width="100" height="auto">
+        {% endif %}
+      </td>
+
+      <td>{{ vehicle.color }}</td>
+      <td>{{ vehicle.capacity }}</td>
+      <td>{{ vehicle.description }}</td>
+      <td>{{ vehicle.province }}</td>
+
       <td>
         <form action="/customer_portal/rent/" method="post">
           {% csrf_token %}
           <input type="hidden" name="id" value="{{ vehicle.id }}">
           <input class="w3-btn w3-green" type="submit" value="Rent">
         </form>
-
       </td>
     </tr>
-
     {% endfor %}
-
-
-
   </table>
 </div>
+
 {% endblock %}

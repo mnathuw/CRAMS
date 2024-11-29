@@ -86,18 +86,50 @@ def search(request):
 
 @login_required
 def search_results(request):
-    city = request.POST['city']
-    city = city.lower()
+    city = request.POST.get('city', '').lower()  # Get city if provided
+    vin = request.POST.get('vin', '').strip()  # Get VIN number if provided
     vehicles_list = []
-    area = Area.objects.filter(city = city)
-    for a in area:
-        vehicles = Vehicle.objects.filter(area = a)
+
+    # If VIN is provided, filter by VIN
+    if vin:
+        vehicles = Vehicle.objects.filter(vin_no=vin)  # Use 'vin_no' to filter
         for car in vehicles:
-            if car.is_available == True:
-                vehicle_dictionary = {'name':car.car_name, 'color':car.color, 'id':car.id, 'province':car.area.province, 'capacity':car.capacity, 'description':car.description}
+            if car.is_available:
+                vehicle_dictionary = {
+                    'name': car.car_name,
+                    'color': car.color,
+                    'id': car.id,
+                    'province': car.area.province,
+                    'capacity': car.capacity,
+                    'description': car.description,
+                    'car_photo': car.car_photo.url if car.car_photo else None
+                }
                 vehicles_list.append(vehicle_dictionary)
+    # Otherwise, filter by city
+    elif city:
+        area = Area.objects.filter(city=city)
+        for a in area:
+            vehicles = Vehicle.objects.filter(area=a)
+            for car in vehicles:
+                if car.is_available:
+                    vehicle_dictionary = {
+                        'name': car.car_name,
+                        'color': car.color,
+                        'id': car.id,
+                        'province': car.area.province,
+                        'capacity': car.capacity,
+                        'description': car.description,
+                        'car_photo': car.car_photo.url if car.car_photo else None
+                    }
+                    vehicles_list.append(vehicle_dictionary)
+
+    # Store the list of vehicles in the session
     request.session['vehicles_list'] = vehicles_list
     return render(request, 'customer/search_results.html')
+
+
+
+
 
 @login_required
 def rent_vehicle(request):

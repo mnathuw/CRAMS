@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib import auth
@@ -7,6 +7,8 @@ from car_dealer_portal.models import *
 from customer_portal.models import *
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from .models import Vehicle, Area, CarDealer
+
 # Create your views here.
 
 def index(request):
@@ -77,38 +79,91 @@ def registration(request):
 
 @login_required
 def add_vehicle(request):
-    car_name = request.POST['car_name']
-    color = request.POST['color']
-    cd = CarDealer.objects.get(car_dealer=request.user)
-    city = request.POST['city']
-    city = city.lower()
-    province = request.POST['province']
-    description = request.POST['description']
-    capacity = request.POST['capacity']
-    try:
-        area = Area.objects.get(city = city, province = province)
-    except:
-        area = None
-    if area is not None:
-        car = Vehicle(car_name=car_name, color=color, dealer=cd, area = area, description = description, capacity=capacity)
+    year_choice = Vehicle.year_choice
+    province_choice = Vehicle.province_choice
+    door_choices = Vehicle.door_choices
+    features_choices = Vehicle.features_choices
+    username = request.user
+    user = User.objects.get(username=username)
+    car_dealer = CarDealer.objects.get(car_dealer=user)  # Ensure you're using 'car_dealer'
+
+    if request.method == 'POST':
+        # Get form data
+        car_name = request.POST['car_name']
+        color = request.POST['color']
+        city = request.POST['city'].lower()  # Convert city to lowercase
+        province = request.POST.get('province')  # Selected province code
+        description = request.POST['description']
+        capacity = request.POST.get('capacity', None)  # Defaults to None if 'capacity' is missing
+        model = request.POST['model']
+        year = request.POST['year']  # Selected year
+        condition = request.POST['condition']
+        price = request.POST['price']
+        body_style = request.POST['body_style']
+        engine = request.POST['engine']
+        transmission = request.POST['transmission']
+        interior = request.POST['interior']
+        milage = request.POST['milage']
+        doors = request.POST['doors']  # Selected door count
+        vin_no = request.POST['vin_no']
+        fuel_type = request.POST['fuel_type']
+        features = request.POST.getlist('features')  # Handle multi-select field
+        car_photo = request.FILES['car_photo']  # Handle file upload
+
+        # Get or create the Area instance based on city and province
+        area, created = Area.objects.get_or_create(province=province, city=city)
+        print(f"Area: {area}, Created: {created}")  # Debugging output
+
+        # Create the vehicle instance
+        car = Vehicle(
+            car_name=car_name,
+            color=color,
+            description=description,
+            capacity=capacity,
+            model=model,
+            year=year,  # Use the selected year
+            condition=condition,
+            price=price,
+            body_style=body_style,
+            engine=engine,
+            transmission=transmission,
+            interior=interior,
+            milage=milage,
+            doors=doors,  # Use the selected door count
+            vin_no=vin_no,
+            fuel_type=fuel_type,
+            features=features,  # List of selected features
+            car_photo=car_photo,
+            area=area,  # Assign the area object here
+            dealer=car_dealer,  # Assign the dealer object here (fixed the variable name)
+        )
+
+        # Save the vehicle to the database
+        car.save()
+
+        return render(request, 'car_dealer/vehicle_added.html', {'car': car})
+
     else:
-        area = Area(city = city, province = province)
-        area.save()
-        area = Area.objects.get(city = city, province = province)
-        car = Vehicle(car_name=car_name, color=color, dealer=cd, area = area,description=description, capacity=capacity)
-    car.save()
-    return render(request, 'car_dealer/vehicle_added.html')
+        return render(request, 'car_dealer/vehicle_added.html', {
+            'year_choice': year_choice,
+            'province_choice': province_choice,
+            'door_choices': door_choices,
+            'features_choices': features_choices,
+        })
 
 @login_required
 def manage_vehicles(request):
-    username = request.user
-    user = User.objects.get(username = username)
-    car_dealer = CarDealer.objects.get(car_dealer = user)
-    vehicle_list = []
-    vehicles = Vehicle.objects.filter(dealer = car_dealer)
-    for v in vehicles:
-        vehicle_list.append(v)
-    return render(request, 'car_dealer/manage.html', {'vehicle_list':vehicle_list})
+    # Ensure that the current user is associated with a CarDealer
+    try:
+        car_dealer = CarDealer.objects.get(car_dealer=request.user)
+    except CarDealer.DoesNotExist:
+        return HttpResponseForbidden("You are not a car dealer.")
+
+    # Retrieve all vehicles related to this car dealer
+    vehicles = Vehicle.objects.filter(dealer=car_dealer)
+
+    # Render the 'manage_vehicles' page with the list of vehicles
+    return render(request, 'car_dealer/manage.html', {'vehicle_list': vehicles})
 
 @login_required
 def order_list(request):
@@ -144,9 +199,25 @@ def history(request):
         order_list.append(o)
     return render(request, 'car_dealer/history.html', {'wallet':car_dealer.wallet, 'order_list':order_list})
 
+from django.contrib import messages
+
 @login_required
 def delete(request):
     veh_id = request.POST['id']
-    vehicle = Vehicle.objects.get(id = veh_id)
-    vehicle.delete()
+
+    try:
+        vehicle = Vehicle.objects.get(id=veh_id)
+
+        # Check if the vehicle is referenced in any orders
+        if vehicle.order_set.exists():
+            messages.error(request, "This vehicle is referenced in one or more orders and cannot be deleted.")
+            return HttpResponseRedirect('/car_dealer_portal/manage_vehicles/')
+
+        # If the vehicle is not referenced, delete it
+        vehicle.delete()
+        messages.success(request, "Vehicle deleted successfully.")
+
+    except Vehicle.DoesNotExist:
+        messages.error(request, "Vehicle not found.")
+
     return HttpResponseRedirect('/car_dealer_portal/manage_vehicles/')
