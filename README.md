@@ -73,10 +73,11 @@ address: 1 Maire-Victorin, Toronto ON M5A 1E1
 phone: 6136270192
 ```
 - **Credit Card Test**
+```
 card number: 4214023128717093
 expiry date: 02/2029
 cvc code: 848
-
+```
 ### 🛠 Database Management
-e.g: [localhost:8000/admin](http://127.0.0.1:8000/)
+[localhost:8000/admin](http://127.0.0.1:8000/)
 
