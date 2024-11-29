@@ -8,7 +8,7 @@ Welcome to the **Car Rental Management System**! This is the final project we de
 - **Car Search**: Easily search for available cars based on various criteria like VIN and location.
 - **Vehicle Management**: Car dealers can add and remove vehicles from the system, including uploading photos and specifying features.
 - **Car Rental**: Customers can rent cars directly through the platform with a simple, secure booking process. Payment can be made via debit/credit card or PayPal.
-- **Order Tracking**: Keep track of car rental orders and their statuses, including pending and completed rentals.
+- **Order Tracking**: Keep track of car rental orders and their statuses.
 - **Reports**: Generate detailed reports on vehicle availability, rental orders, and earnings for car dealers.
 - **Contact Form**: Guests can contact the platform through a contact form for inquiries or support.
 
@@ -17,7 +17,7 @@ Welcome to the **Car Rental Management System**! This is the final project we de
   - [jQuery](https://jquery.com/) simplifies DOM manipulation, event handling, and Ajax requests on the front-end.
   - [Popper.js](https://popper.js.org/docs/v2/) manages poppers (elements that pop up, like tooltips or dropdowns), often used with Bootstrap.
   - [Bootstrap JS](https://getbootstrap.com/) is used for front-end functionality.
-  - [W3.css](https://www.w3schools.com/w3css/defaulT.asp)
+  - [W3.css](https://www.w3schools.com/w3css/defaulT.asp) is a modern, responsive, mobile first CSS framework
 - **Backend**:
   - [Django](https://www.djangoproject.com/) is the core back-end framework used to build web applications.
   - [MySQL](https://www.mysql.com/) stores data like user info, vehicles details, orders, and contacts.
@@ -79,5 +79,5 @@ expiry date: 02/2029
 cvc code: 848
 ```
 ### 🛠 Database Management
-[localhost:8000/admin](http://127.0.0.1:8000/)
+[localhost:8000/admin](localhost:8000/)
 
