@@ -33,18 +33,9 @@ Welcome to the **Car Rental Management System**! This is the final project we de
 ```bash
 pip install -r requirements.txt
 ```
-- **Make migrations**
-```
-python manage.py makemigrations
-python manage.py migrate
-```
 - **Run app on website**
 ```
 python manage.py runserver
-```
-- **Create admin account**
-```
-python manage.py createsuperuser
 ```
 ### 🧑‍💻 Accounts for Testing
 - **Admin Account**
