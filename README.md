@@ -1,7 +1,7 @@
 # 🚗 CRAMS
 Welcome to the **Car Rental Management System**! This is the final project we developed as part of our **Software Engineering** course. This web application is designed to streamline the process for both **car dealers** and **customers**. It allows car dealers to easily manage their vehicles and rental orders, while providing customers with a simple and secure way to search for, rent, and track their car rentals – all in one convenient platform!
 
-## 🎥 [Click for Video Demo](URL HERE)
+## 🎥 [Click for Video Demo](https://youtu.be/PsdmcPWRQMc)
 
 ## 🚗 Features
 - **User Authentication**: Register and log in as a customer or car dealer. Each role has access to specific functionalities such as managing vehicles or renting cars.
