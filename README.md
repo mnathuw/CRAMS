@@ -70,5 +70,5 @@ expiry date: 02/2029
 cvc code: 848
 ```
 ### 🛠 Database Management
-[localhost:8000/admin]([http://127.0.0.1:8000/admin/login/?next=/admin/])
+[localhost:8000/admin](http://127.0.0.1:8000/admin/login/?next=/admin/)
 
