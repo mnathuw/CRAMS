@@ -71,4 +71,5 @@ cvc code: 848
 ```
 ### 🛠 Database Management
 [localhost:8000/admin](http://127.0.0.1:8000/admin/login/?next=/admin/)
+SECRET_KEY = 'django-insecure-o4n(hm_uy8mvil^+g2drc*u1&06!uvn&tp@pg(q_06v1#@)6&p'
 
